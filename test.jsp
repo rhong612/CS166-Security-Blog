@@ -12,7 +12,16 @@
 <body>
 <%@ include file="header.jsp" %>
 
-Main Page Here
-</body>
+<h2> <%= user.getUsername() %>
+	<br>
+ <%= user.getPassword() %> </h2>
 
+<%
+    System.out.println( "Scriptlet test" );
+    java.util.Date date = new java.util.Date();
+%>
+The time is now <%= date %>
+<br>
+Test
+</body>
 </HTML>
