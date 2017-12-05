@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS cs166_raymond;
+CREATE DATABASE cs166_raymond;

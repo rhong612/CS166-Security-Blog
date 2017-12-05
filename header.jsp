@@ -1,3 +1,7 @@
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
 <!--Navigation Bar-->
 <div class="container-fluid">
   <nav class="navbar navbar-inverse navbar-static-top">
@@ -8,7 +12,7 @@
       <div class="collapse navbar-collapse" id="navbarItems">
         <ul class="nav navbar-nav">
           <li id="blogButton"><a href="#">Blog List</a></li>
-          <li id="registerButton"><a href="registration.jsp">Register</a></li>
+          <li id="registerButton"><a href="account/registration.jsp">Register</a></li>
         </ul>
       </div>
     </div>
