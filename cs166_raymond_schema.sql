@@ -1,2 +1,10 @@
 DROP DATABASE IF EXISTS cs166_raymond;
 CREATE DATABASE cs166_raymond;
+USE cs166_raymond;
+
+CREATE TABLE login (
+  fullname  VARCHAR(128) DEFAULT NULL,
+  user  VARCHAR(128) NOT NULL,
+  pass VARCHAR(128) NOT NULL,
+  PRIMARY KEY (user)
+)
