@@ -1,4 +1,4 @@
-<%@include file="databases.jsp" %>
+<%@include file="../databases.jsp" %>
 
 <%
 
@@ -16,11 +16,11 @@ ResultSet rs = stmt.executeQuery();
 //ResultSet rs = stmt.executeQuery(sqlStr);
 
 if ( rs.next() ) {
-	stmt.close();
-	con.close();
 	session.setAttribute( "user", user );
 	session.setAttribute( "username", rs.getString(1) );
 	session.setMaxInactiveInterval(60*20);
+	stmt.close();
+	con.close();
 	response.sendRedirect("blog_list.jsp");	
 } else {
 	stmt.close();
