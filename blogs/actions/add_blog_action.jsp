@@ -6,7 +6,7 @@ String title = request.getParameter("title");
 String body = request.getParameter("body");
 if (session.getAttribute("username") == null) {
 	con.close();
-	response.sendRedirect("../myblogs.jsp");
+	response.sendRedirect("../../index.jsp");
 }
 else if (title.length() >= 32) {
 	con.close();

@@ -18,7 +18,7 @@
 	</thead>
 	<tbody>
 <%
-if (session.getAttribute("fullname") == null) {
+if (session.getAttribute("username") == null) {
 	response.sendRedirect("../index.jsp");
 }
 else {
@@ -29,13 +29,14 @@ else {
 	while (rs.next()) {
 		String title = rs.getString("title");
 		String date = rs.getString("date");
+		int blog_id = rs.getInt("blog_id");
 %>
 			<tr>
 				<td><%= title %></td>
 				<td><%= date %></td>
 				<td>
 					<div class="col-sm-6">
-						<form method="get" action="edit_blog.jsp"><input type="Submit" value="Edit"></form>
+						<form method="get" action="edit_blog.jsp"><input type="hidden" name="blog_id" value="<%= blog_id %>"><input type="Submit" value="Edit"></form>
 					</div>
 					<div class="col-sm-6">
 						<form method="post" action="actions/delete_blog.jsp"><input type="Submit" value="Delete"></form>

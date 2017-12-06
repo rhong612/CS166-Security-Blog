@@ -7,11 +7,11 @@
 
 
 <body>
-<p>Hello <%= session.getAttribute("fullname") == null ? "Guest" : session.getAttribute("fullname") %> </p>
+<p>Hello <%= session.getAttribute("username") == null ? "Guest" : session.getAttribute("fullname") %> </p>
 
 <%
 
-if (session.getAttribute("fullname") != null) {
+if (session.getAttribute("username") != null) {
 %>
 
 

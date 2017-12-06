@@ -8,7 +8,7 @@
 
 <body>
 <%
-if (session.getAttribute("fullname") == null) {
+if (session.getAttribute("username") == null) {
 	response.sendRedirect("../index.jsp");
 }
 %>
