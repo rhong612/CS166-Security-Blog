@@ -45,6 +45,7 @@ if ( rs.next() ) {
 	con.close();
 	response.sendRedirect("../../index.jsp");	
 } else {
+	//Invalid login credentials
 	stmt.close();
 	con.close();
 	response.sendRedirect("../login.jsp");

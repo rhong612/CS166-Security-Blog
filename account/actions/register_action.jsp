@@ -4,6 +4,9 @@
 <%
 String fullname = request.getParameter( "fullname" );
 String user = request.getParameter( "user" );
+if (fullname.length() >= 128 || user.length() >= 32) {
+	response.sendRedirect("../registration.jsp"); //Full name or username too long
+}
 String pass = request.getParameter( "pass" );
 String sqlStr = "INSERT INTO login(fullname,user, pass) VALUES (?, ?, sha2(?, 256))";
 PreparedStatement stmt = con.prepareStatement(sqlStr);

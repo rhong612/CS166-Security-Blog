@@ -16,6 +16,7 @@ if (session.getAttribute("fullname") == null) {
 
 <div class="container">
   <h2>Blog Title:</h2>
+  <h5>Max 32 characters</h5>
   <form method="post" action="actions/add_blog_action.jsp">
     <div class="form-group">
       <textarea class="form-control" name="title" rows="1" id="comment"></textarea>
