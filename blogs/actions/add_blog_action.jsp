@@ -27,6 +27,7 @@ else {
 
 	stmt.close();
 	con.close();
+	response.sendRedirect("../myblogs.jsp"); //Blog successfully added
 }
 
 %>
