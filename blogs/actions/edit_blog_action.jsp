@@ -9,6 +9,10 @@ if (session.getAttribute("username") == null) {
 	con.close();
 	response.sendRedirect("../../index.jsp");
 }
+else if (title == null || body == null) {
+	con.close();
+	response.sendRedirect("../../unauthorized.jsp");
+}
 else if (title.length() >= 32) {
 	con.close();
 	String referer = request.getHeader("Referer");

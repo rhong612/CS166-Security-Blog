@@ -14,7 +14,7 @@ if (session.getAttribute("username") != null) {
 	out.print("<br>" + session.getAttribute("fullname"));	
 }
 else {
-	out.print("You are not authenticated");
+	out.print("Hello guest! Register for an account and login to access all of the features of this site (:");
 }
 
 
