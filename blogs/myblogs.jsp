@@ -36,7 +36,7 @@ else {
 				<td><%= date %></td>
 				<td>
 					<div class="col-sm-6">
-						<form method="get" action="edit_blog.jsp"><input type="hidden" name="blog_id" value="<%= blog_id %>"><input type="Submit" value="Edit"></form>
+						<form method="post" action="edit_blog.jsp"><input type="hidden" name="blog_id" value="<%= blog_id %>"><input type="Submit" value="Edit"></form>
 					</div>
 					<div class="col-sm-6">
 						<form method="post" action="actions/delete_blog_action.jsp"><input type="hidden" name="blog_id" value="<%= blog_id %>"><input type="Submit" value="Delete"></form>

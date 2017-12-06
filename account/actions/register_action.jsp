@@ -14,9 +14,16 @@ else {
 	stmt.setString(1,fullname);
 	stmt.setString(2,user);
 	stmt.setString(3,pass);
-	stmt.executeUpdate();
-	stmt.close();
-	con.close();
-	response.sendRedirect("../login.jsp"); 	
+	try {
+		stmt.executeUpdate();
+		stmt.close();
+		con.close();
+		response.sendRedirect("../login.jsp"); //Registration succeeded
+	}
+	catch (Exception e) {
+		out.println("<h4>Something went wrong. Please contact the system administrator.</h4>");
+		stmt.close();
+		con.close();
+	}	
 }
 %>
