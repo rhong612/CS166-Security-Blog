@@ -4,6 +4,9 @@
 <title>CS 166 Security Blog</title>
 </head>
 
+
+<body>
+
 <%
 
 if (session.getAttribute("username") != null) {
@@ -17,7 +20,6 @@ else {
 
 %>
 
-<body>
 </body>
 
 </HTML>

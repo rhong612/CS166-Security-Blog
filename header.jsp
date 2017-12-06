@@ -18,12 +18,7 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li><a href="/index.jsp">Home</a></li>
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Blog List<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Page 1</a></li>
-          </ul>
-        </li>
+        <li><a href="/blogs/main.jsp">Blogs</a></li>
         <li><a href="#">Link here</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">

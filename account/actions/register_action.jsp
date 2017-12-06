@@ -1,22 +1,6 @@
 <%@include file="../../databases.jsp" %>
 
 
-
-<%--
-String fullname = request.getParameter( "fullname" );
-String user = request.getParameter( "user" );
-String pass = request.getParameter( "pass" );
-
-String sqlStr = "INSERT INTO login(fullname, user, pass) VALUES ('" + fullname + "', '" + user + "', sha2('"+ pass + "', 256))";
-Statement stmt = con.createStatement();
-stmt.execute(sqlStr);
-stmt.close();
-con.close();
-response.sendRedirect("login.jsp"); 
---%>
-
-
-
 <%
 String fullname = request.getParameter( "fullname" );
 String user = request.getParameter( "user" );
