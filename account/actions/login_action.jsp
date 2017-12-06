@@ -1,5 +1,5 @@
-<%@include file="../databases.jsp" %>
-<%@include file="../constants.jsp" %>
+<%@include file="../../databases.jsp" %>
+<%@include file="../../constants.jsp" %>
 
 
 
@@ -15,11 +15,12 @@ stmt.setString(1,user);
 stmt.setString(2,pass);
 ResultSet rs = stmt.executeQuery();
 if ( rs.next() ) {
-	session.setAttribute( "user", user );
+	session.setAttribute( "username", user );
 	session.setAttribute( "fullname", rs.getString("fullname"));
 	session.setMaxInactiveInterval(60 * 60); //1 hour
 
 	if (request.getParameter("rememberMe") != null) {
+		//Set cookie to remember user account details
 		Cookie usernameCookie = new Cookie(USERNAME_COOKIE, user);
 		Cookie passwordCookie = new Cookie(PASSWORD_COOKIE, pass);
 		usernameCookie.setMaxAge(24*60*60);
@@ -28,6 +29,7 @@ if ( rs.next() ) {
 		response.addCookie(passwordCookie);
 	}
 	else {
+		//Remove all cookies
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
 			for (Cookie cookie : cookies) {
@@ -41,10 +43,10 @@ if ( rs.next() ) {
 
 	stmt.close();
 	con.close();
-	response.sendRedirect("../index.jsp");	
+	response.sendRedirect("../../index.jsp");	
 } else {
 	stmt.close();
 	con.close();
-	response.sendRedirect("login.jsp");
+	response.sendRedirect("../login.jsp");
 }
 %>

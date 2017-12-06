@@ -1,4 +1,4 @@
-<%@include file="../databases.jsp" %>
+<%@include file="../../databases.jsp" %>
 
 
 
@@ -29,5 +29,5 @@ stmt.setString(3,pass);
 stmt.executeUpdate();
 stmt.close();
 con.close();
-response.sendRedirect("login.jsp"); 
+response.sendRedirect("../login.jsp"); 
 %>
