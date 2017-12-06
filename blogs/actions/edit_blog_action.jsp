@@ -15,13 +15,11 @@ else if (title == null || body == null) {
 }
 else if (title.length() >= 32) {
 	con.close();
-	String referer = request.getHeader("Referer");
-	response.sendRedirect(referer); //Title too long
+	response.sendRedirect("../myblogs.jsp"); //Title too long
 }
 else if (body.length() >= 65535) {
 	con.close();
-	String referer = request.getHeader("Referer");
-	response.sendRedirect(referer); //Body too long
+	response.sendRedirect("../myblogs.jsp"); //Body too long
 }
 else {
 	String query = "UPDATE blogs SET title=?, body=? WHERE user=? AND blog_id=?";

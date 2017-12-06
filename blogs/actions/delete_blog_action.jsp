@@ -9,7 +9,7 @@ if (session.getAttribute("username") == null) {
 }
 else if (blog_id == null) {
 	con.close();
-	response.sendRedirect("../unauthorized.jsp");
+	response.sendRedirect("../../unauthorized.jsp");
 }
 else {
 	String query = "DELETE FROM blogs WHERE user=? AND blog_id=?";

@@ -32,7 +32,7 @@ else {
     //Invalid blog ID or a user is attempting to edit a blog that isn't theirs
     stmt.close();
     con.close();
-    response.sendRedirect("../unauthorized.jsp");
+    response.sendRedirect("myblogs.jsp");
   }
 
 }
