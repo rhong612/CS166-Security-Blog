@@ -8,6 +8,11 @@
 
 
 <%
+	if (session.getAttribute("username") != null) {
+		response.sendRedirect("../index.jsp");
+	}
+
+
 	Cookie[] cookies = request.getCookies();
 	String name = "";
 	String pass = "";
