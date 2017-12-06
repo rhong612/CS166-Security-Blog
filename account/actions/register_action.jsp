@@ -4,7 +4,7 @@
 <%
 String fullname = request.getParameter( "fullname" );
 String user = request.getParameter( "user" );
-if (fullname.length() >= 128 || user.length() >= 32) {
+if (fullname == null || user == null || fullname.length() >= 128 || user.length() >= 32) {
 	response.sendRedirect("../registration.jsp"); //Full name or username too long
 }
 String pass = request.getParameter( "pass" );

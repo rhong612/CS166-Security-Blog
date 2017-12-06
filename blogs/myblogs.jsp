@@ -18,32 +18,36 @@
 	</thead>
 	<tbody>
 <%
-String query = "SELECT * FROM blogs WHERE user = ?";
-PreparedStatement stmt = con.prepareStatement(query);
-stmt.setString(1, session.getAttribute("username").toString());
-ResultSet rs = stmt.executeQuery();
-while (rs.next()) {
-	String title = rs.getString("title");
-	String date = rs.getString("date");
+if (session.getAttribute("fullname") == null) {
+	response.sendRedirect("../index.jsp");
+}
+else {
+	String query = "SELECT * FROM blogs WHERE user = ?";
+	PreparedStatement stmt = con.prepareStatement(query);
+	stmt.setString(1, session.getAttribute("username").toString());
+	ResultSet rs = stmt.executeQuery();
+	while (rs.next()) {
+		String title = rs.getString("title");
+		String date = rs.getString("date");
 %>
-		<tr>
-			<td><%= title %></td>
-			<td><%= date %></td>
-			<td>
-				<div class="col-sm-6">
-					<form method="get" action="edit_blog.jsp"><input type="Submit" value="Edit"></form>
-				</div>
-				<div class="col-sm-6">
-					<form method="post" action="actions/delete_blog.jsp"><input type="Submit" value="Delete"></form>
-				</div>
-			</td>
-		</tr>
+			<tr>
+				<td><%= title %></td>
+				<td><%= date %></td>
+				<td>
+					<div class="col-sm-6">
+						<form method="get" action="edit_blog.jsp"><input type="Submit" value="Edit"></form>
+					</div>
+					<div class="col-sm-6">
+						<form method="post" action="actions/delete_blog.jsp"><input type="Submit" value="Delete"></form>
+					</div>
+				</td>
+			</tr>
 
 <%
-}
-
+	}
 
 stmt.close();
+}
 con.close();
 %>
 
