@@ -4,7 +4,16 @@ USE cs166_raymond;
 
 CREATE TABLE login (
   fullname  VARCHAR(128) DEFAULT NULL,
-  user  VARCHAR(128) NOT NULL,
-  pass VARCHAR(128) NOT NULL,
+  user  VARCHAR(32) NOT NULL,
+  pass VARCHAR(64) NOT NULL,
   PRIMARY KEY (user)
-)
+);
+
+CREATE TABLE blogs (
+ user VARCHAR(32) NOT NULL,
+ title VARCHAR(32),
+ body TEXT,
+ FOREIGN KEY (user)
+	REFERENCES login(user) ON DELETE CASCADE ON UPDATE CASCADE,
+ PRIMARY KEY (user)	
+);
