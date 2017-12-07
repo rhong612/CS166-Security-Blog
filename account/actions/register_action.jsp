@@ -21,7 +21,7 @@ else {
 		response.sendRedirect("../login.jsp"); //Registration succeeded
 	}
 	catch (Exception e) {
-		out.println("<h4>Something went wrong. Please contact the system administrator.</h4>");
+		out.println("<h4>Username taken.</h4>");
 		stmt.close();
 		con.close();
 	}	
