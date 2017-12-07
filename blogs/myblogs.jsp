@@ -8,6 +8,7 @@
 
 
 <body>
+<h1> My Blogs </h1>
 <table class="table table-striped">
 	<thead>
 		<tr>
