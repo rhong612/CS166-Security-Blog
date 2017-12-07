@@ -60,4 +60,5 @@ else {
 
 
 
+<%@ include file="../footer.jsp" %>
 </HTML>

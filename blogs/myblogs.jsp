@@ -61,4 +61,5 @@ con.close();
 
 
 
+<%@ include file="../footer.jsp" %>
 </HTML>

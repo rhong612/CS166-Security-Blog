@@ -34,4 +34,5 @@ if (session.getAttribute("username") == null) {
 
 
 
+<%@ include file="../footer.jsp" %>
 </HTML>

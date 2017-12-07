@@ -50,4 +50,8 @@ con.close();
 
 
 <title><%= title %></title>
+
+
+
+<%@ include file="../footer.jsp" %>
 </HTML>

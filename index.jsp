@@ -19,7 +19,7 @@ else {
 
 
 %>
-
 </body>
 
+<%@ include file="footer.jsp" %>
 </HTML>
