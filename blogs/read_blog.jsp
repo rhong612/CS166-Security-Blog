@@ -2,7 +2,6 @@
 <head>
 <%@ include file="../header.jsp" %>
 <%@ include file="../databases.jsp" %>
-<title>Blog</title>
 </head>
 
 
@@ -10,13 +9,13 @@
 <body>
 
 <%
+String title = "404";
 String query = "SELECT * FROM blogs NATURAL JOIN login WHERE blog_id = ?";
 PreparedStatement stmt = con.prepareStatement(query);
 stmt.setString(1, request.getParameter("blog_id"));
 ResultSet rs = stmt.executeQuery();
-
 if (rs.next()) {
-  String title = rs.getString("title");
+  title = rs.getString("title");
   String author = rs.getString("fullname");
   String body = rs.getString("body");
 %>
@@ -45,6 +44,5 @@ con.close();
 </body>
 
 
-
-
+<title><%= title %></title>
 </HTML>
