@@ -45,6 +45,7 @@ while (blogSet.next()) {
 	String title = blogSet.getString("title");
 	int blog_id = blogSet.getInt("blog_id");
 	String author = blogSet.getString("fullname");
+	String date = blogSet.getString("date");
 %>
 
 
@@ -53,6 +54,7 @@ while (blogSet.next()) {
 				<div>
 					<h3><%= title %></h3>
 					<h5>By: <%= author %></h5>
+					<h6>Last Updated: <%= date %></h6>
 					<form method="get" action="read_blog.jsp"><input type="hidden" name="blog_id" value="<%= blog_id %>"><input type="Submit" value="Read"></form>
 				</div>
 			</td>

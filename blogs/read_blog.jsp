@@ -20,6 +20,7 @@ if (rs.next()) {
   title = rs.getString("title");
   String author = rs.getString("fullname");
   String body = rs.getString("body");
+  String date = rs.getString("date");
 %>
 
 <div class="container">
@@ -28,6 +29,8 @@ if (rs.next()) {
       <h2 class="text-center"><%= title %></h2>
       <h4 class="text-center">By: <%= author %></h4>
       <h5 style="word-wrap: break-word;""><%= Jsoup.clean(body, Whitelist.basicWithImages())  %></h5>
+      <br>
+      <h5 class="text-center">Last Updated: <%= date %></h5>
     </div>
   </div>
 </div>
