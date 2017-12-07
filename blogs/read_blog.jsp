@@ -2,6 +2,8 @@
 <head>
 <%@ include file="../header.jsp" %>
 <%@ include file="../databases.jsp" %>
+<%@ page import="org.jsoup.Jsoup" %>
+<%@ page import="org.jsoup.safety.Whitelist" %>
 </head>
 
 
@@ -25,7 +27,7 @@ if (rs.next()) {
     <div class="col-md-12">
       <h2 class="text-center"><%= title %></h2>
       <h4 class="text-center">By: <%= author %></h4>
-      <h5 style="word-wrap: break-word;""><%= body %></h5>
+      <h5 style="word-wrap: break-word;""><%= Jsoup.clean(body, Whitelist.basicWithImages())  %></h5>
     </div>
   </div>
 </div>
