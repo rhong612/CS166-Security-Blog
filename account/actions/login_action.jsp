@@ -9,7 +9,7 @@
 //Check user
 String user = request.getParameter( "user" );
 String pass = request.getParameter( "pass" );
-String sqlStr = "SELECT fullname FROM login WHERE user=? and pass = sha2(?, 256)";
+String sqlStr = "SELECT fullname FROM login WHERE user=? and pass = sha2(CONCAT(login.salt, ?), 256)";
 PreparedStatement stmt = con.prepareStatement(sqlStr);
 stmt.setString(1,user);
 stmt.setString(2,pass);

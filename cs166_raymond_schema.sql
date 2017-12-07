@@ -6,6 +6,7 @@ CREATE TABLE login (
   fullname  VARCHAR(128) DEFAULT NULL,
   user  VARCHAR(32) NOT NULL,
   pass VARCHAR(64) NOT NULL,
+  salt VARCHAR(32) NOT NULL,
   PRIMARY KEY (user)
 );
 
