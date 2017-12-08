@@ -19,6 +19,7 @@ if (session.getAttribute("username") == null) {
   <h5>Max 32 characters</h5>
   <form method="post" action="actions/add_blog_action.jsp">
     <div class="form-group">
+      <input type="hidden" name="token" value=<%= session.getAttribute("token") %>>
       <textarea class="form-control" name="title" rows="1" id="comment"></textarea>
       <br>
       <label for="comment">Blog Body:</label>

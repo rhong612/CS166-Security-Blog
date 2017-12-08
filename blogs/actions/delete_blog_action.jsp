@@ -3,11 +3,12 @@
 
 <%
 String blog_id = request.getParameter("blog_id");
+String token = request.getParameter("token");
 if (session.getAttribute("username") == null) {
 	con.close();
 	response.sendRedirect("../../index.jsp");
 }
-else if (blog_id == null) {
+else if (blog_id == null || !session.getAttribute("token").equals(token)) {
 	con.close();
 	response.sendRedirect("../../unauthorized.jsp");
 }

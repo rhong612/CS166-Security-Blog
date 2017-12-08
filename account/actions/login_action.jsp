@@ -1,5 +1,7 @@
 <%@include file="../../databases.jsp" %>
 <%@include file="../../constants.jsp" %>
+<%@page import="java.security.SecureRandom" %>
+<%@page import="java.util.Base64" %>
 
 
 
@@ -40,6 +42,14 @@ if ( rs.next() ) {
 			}
 		}
 	}
+
+	//Generate CSRF token
+	SecureRandom tokenGenerator = new SecureRandom();
+	byte[] token = new byte[16]; //16 bytes token
+	tokenGenerator.nextBytes(token);
+	String tokenStr = Base64.getEncoder().encodeToString(token);
+	session.setAttribute( "token", tokenStr);
+	session.setMaxInactiveInterval(60 * 60); //1 hour
 
 	stmt.close();
 	con.close();

@@ -4,11 +4,12 @@
 <%
 String title = request.getParameter("title");
 String body = request.getParameter("body");
+String token = request.getParameter("token");
 if (session.getAttribute("username") == null) {
 	con.close();
 	response.sendRedirect("../../index.jsp");
 }
-else if (title == null || body == null) {
+else if (title == null || body == null || !session.getAttribute("token").equals(token)) {
 	con.close();
 	response.sendRedirect("../../unauthorized.jsp");
 }

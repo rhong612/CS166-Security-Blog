@@ -40,7 +40,9 @@ else {
 						<form method="post" action="edit_blog.jsp"><input type="hidden" name="blog_id" value="<%= blog_id %>"><input type="Submit" value="Edit"></form>
 					</div>
 					<div class="col-sm-6">
-						<form method="post" action="actions/delete_blog_action.jsp"><input type="hidden" name="blog_id" value="<%= blog_id %>"><input type="Submit" value="Delete"></form>
+						<form method="post" action="actions/delete_blog_action.jsp">
+      						<input type="hidden" name="token" value=<%= session.getAttribute("token") %>><input type="hidden" name="blog_id" value="<%= blog_id %>"><input type="Submit" value="Delete">
+      					</form>
 					</div>
 				</td>
 			</tr>
