@@ -19,8 +19,7 @@ ResultSet rs = stmt.executeQuery();
 if ( rs.next() ) {
 	session.setAttribute( "username", user );
 	session.setAttribute( "fullname", rs.getString("fullname"));
-	session.setMaxInactiveInterval(60 * 60); //1 hour
-
+	
 	if (request.getParameter("rememberMe") != null) {
 		//Set cookie to remember user account details
 		Cookie usernameCookie = new Cookie(USERNAME_COOKIE, user);
