@@ -19,7 +19,17 @@
       <ul class="nav navbar-nav">
         <li><a href="/index.jsp">Home</a></li>
         <li><a href="/blogs/main.jsp">Blogs</a></li>
-        <li><a href="#">Link here</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Feature Demonstrations
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/features/sql.jsp">SQL Injection</a></li>
+            <li><a href="/features/xss.jsp">Cross-site Scripting</a></li>
+            <li><a href="/features/defacing.jsp">Web Site Defacing</a></li>
+            <li><a href="/features/cookies.jsp">Web Cookies</a></li>
+            <li><a href="/features/session.jsp">JSP/Servlet Session Management</a></li>
+          </ul>
+        </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
           <%
