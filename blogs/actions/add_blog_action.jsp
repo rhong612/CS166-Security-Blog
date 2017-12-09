@@ -1,9 +1,17 @@
 <%@include file="../../databases.jsp" %>
+<%@ page import="org.jsoup.Jsoup" %>
+<%@ page import="org.jsoup.safety.Whitelist" %>
+
 
 
 <%
 String title = request.getParameter("title");
 String body = request.getParameter("body");
+
+
+String cleanedTitle = Jsoup.clean(title, Whitelist.basicWithImages());
+String cleanedBody = Jsoup.clean(body, Whitelist.basicWithImages());
+
 String token = request.getParameter("token");
 if (session.getAttribute("username") == null) {
 	con.close();
@@ -12,6 +20,11 @@ if (session.getAttribute("username") == null) {
 else if (title == null || body == null || !session.getAttribute("token").equals(token)) {
 	con.close();
 	response.sendRedirect("../../unauthorized.jsp");
+}
+else if(!cleanedTitle.equals(title) || !cleanedBody.equals(body)) {
+	con.close();
+	response.sendRedirect("../myblogs.jsp"); //Invalid HTML entities
+	
 }
 else if (title.length() >= 32) {
 	con.close();
