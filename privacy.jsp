@@ -1,6 +1,7 @@
 <HTML>
 <head>
 <%@ include file="header.jsp" %>
+<%@ include file="tracker_cookie.jsp" %>
 <title>CS 166 Security Blog</title>
 </head>
 

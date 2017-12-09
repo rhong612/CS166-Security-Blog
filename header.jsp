@@ -1,4 +1,7 @@
 
+<%@page import="java.util.Date" %>
+<%@include file="constants.jsp" %>
+
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -45,3 +48,47 @@
     </div>
   </div>
 </nav>
+
+
+
+<%
+
+  //Cookie used to remember last visited page and time
+  Cookie[] allCookies = request.getCookies();
+  Date currentDate = new Date();
+  boolean timeCookieExists = false;
+  boolean pageCookieExists = false;
+  if (allCookies != null) {
+    for (Cookie cookie : allCookies) {
+      if (cookie.getName().equals(TIME_COOKIE)) {
+        cookie.setValue(currentDate.toString());
+        cookie.setPath("/");
+        response.addCookie(cookie);
+        timeCookieExists = true;
+      }
+      else if (cookie.getName().equals(PAGE_COOKIE)) {
+        String currentPage = request.getRequestURL().toString();
+        if (!currentPage.endsWith("cookies.jsp")) {
+          cookie.setValue(currentPage);
+          cookie.setPath("/");
+          response.addCookie(cookie);
+        }
+        pageCookieExists = true;
+      }
+    }
+  }
+  if (!timeCookieExists) {
+    Cookie timeCookie = new Cookie(TIME_COOKIE, currentDate.toString());
+    timeCookie.setMaxAge(365 * 24 * 60 * 60); //A year
+    timeCookie.setPath("/");
+    response.addCookie(timeCookie);
+  }
+  if (!pageCookieExists) {
+    String currentPage = request.getRequestURL().toString();
+    Cookie pageCookie = new Cookie(PAGE_COOKIE, currentPage);
+    pageCookie.setMaxAge(365 * 24 * 60 * 60); //A year
+    pageCookie.setPath("/");
+    response.addCookie(pageCookie);
+  }
+
+%>

@@ -1,4 +1,4 @@
-<HTML>
+
 
 <%!
 
@@ -10,4 +10,3 @@ final String TIME_COOKIE = "timeCookie";
 
 %>
 
-</HTML>

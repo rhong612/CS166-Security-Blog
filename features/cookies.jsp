@@ -1,7 +1,6 @@
 <HTML>
 <head>
 <%@ include file="../header.jsp" %>
-<%@ include file="../constants.jsp" %>
 <title>CS 166 Security Blog</title>
 </head>
 

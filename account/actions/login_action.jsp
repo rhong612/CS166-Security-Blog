@@ -2,7 +2,6 @@
 <%@include file="../../constants.jsp" %>
 <%@page import="java.security.SecureRandom" %>
 <%@page import="java.util.Base64" %>
-<%@page import="java.util.Date" %>
 
 
 
@@ -42,34 +41,6 @@ if ( rs.next() ) {
 			}
 		}
 	}
-	//Cookie used to remember last visited page and time
-	Cookie[] cookies = request.getCookies();
-	boolean timeCookieExists = false;
-	boolean pageCookieExists = false;
-	if (cookies != null) {
-		for (Cookie cookie : cookies) {
-			if (cookie.getName().equals(TIME_COOKIE)) {
-				timeCookieExists = true;
-			}
-			else if (cookie.getName().equals(PAGE_COOKIE)) {
-				pageCookieExists = true;
-			}
-		}
-	}
-	if (!timeCookieExists) {
-		Date date = new Date();
-		Cookie timeCookie = new Cookie(TIME_COOKIE, date.toString());
-		timeCookie.setMaxAge(365 * 24 * 60 * 60); //A year
-		timeCookie.setPath("/");
-		response.addCookie(timeCookie);
-	}
-	if (!pageCookieExists) {
-		Cookie pageCookie = new Cookie(PAGE_COOKIE, request.getRequestURL().toString());
-		pageCookie.setMaxAge(365 * 24 * 60 * 60); //A year
-		pageCookie.setPath("/");
-		response.addCookie(pageCookie);
-	}
-
 
 	//Generate CSRF token
 	SecureRandom tokenGenerator = new SecureRandom();

@@ -1,6 +1,5 @@
 <html>
 <head>
-<%@include file="../constants.jsp" %>
 <%@ include file="../header.jsp" %>
 <title>Login Page</title>
 </head>
