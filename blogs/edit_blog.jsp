@@ -45,10 +45,10 @@ else {
   <form method="post" action="actions/edit_blog_action.jsp">
     <div class="form-group">
       <input type="hidden" name="token" value=<%= session.getAttribute("token") %>>
-      <textarea class="form-control" name="title" rows="1" id="comment"><%= title %></textarea>
+      <textarea class="form-control" name="title" rows="1" ><%= title %></textarea>
       <br>
       <label for="comment">Blog Body:</label>
-      <textarea class="form-control" name="body" rows="20" id="comment"><%= body %></textarea>
+      <textarea class="form-control" name="body" rows="20" ><%= body %></textarea>
       <br>
       <input type="hidden" name="blog_id" value="<%= blog_id %>"/>
       <input type="Submit"/>
