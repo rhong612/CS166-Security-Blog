@@ -23,7 +23,7 @@
 
 <h3>Try it out: </h3>
 
-<p>Below is a sample blog. Users can add comments to the blog. Try writing a comment and adding &lt;script&gt; alert("XSS vulnerability!");&lt;/script&gt; somewhere in your comment. After clicking the "Add comment" button, your comment will be shown and any javascript code in it will be executed.</p>
+<p>Below is a sample blog. Users can add comments to the blog. Try writing a comment and adding &lt;script&gt; document.body.style.backgroundColor = "#AA0000"; &lt;/script&gt; somewhere in your comment. After clicking the "Add comment" button, your comment will be shown and any javascript code in it will be executed. The script above will change the background color of the page.</p>
 
 <h3 style="text-align:center;">Sample Blog</h3>
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tincidunt lobortis pretium. Nam scelerisque, neque et bibendum vehicula, risus enim pharetra dui, quis mattis ipsum mi vitae tellus. Quisque facilisis, purus non ultrices hendrerit, elit leo imperdiet enim, vel blandit dolor nibh id orci. Morbi egestas enim ut nibh tristique, vitae lacinia est gravida. Aliquam ac pellentesque ligula, sit amet egestas dolor. Etiam venenatis vestibulum quam, sit amet interdum purus dictum nec. Vestibulum et ultricies ipsum. Praesent id egestas risus, non fringilla nulla. Praesent porttitor augue odio.
@@ -42,13 +42,13 @@ Ut malesuada, velit quis bibendum elementum, purus sapien euismod tellus, ut viv
 <textarea class="form-control" rows="3" id="comment"></textarea>
 <input type="button" id="addCommentBtn" value="Add Comment"/>
 
-<p>In this specific example, I'm not saving any of your comments. However, if I did, users who came to this page would see your comments and your javascript code will be executed in their browser.</p>
+<p>In this specific example, I'm not saving any of your comments. However, if I did, users who came to this page would see your comments and your javascript code will be executed in their browser. In other words, they would also see a red background. While this was a harmless script, there are many ways attackers can take advantage of this vulnerability. For example, the attacker could input something like &lt;script&gt;document.location="http://some-malicious-site.com";&lt;/script&gt; with a URL that leads to a malicious site.</p>
 
 
 
-<h3>Possible Defenses: </h3>
+<h3>Countermeasures: </h3>
 
-<p>1.) Escaping HTML entities: this blog site uses the JSoup external library to escape dangerous HTML entities to prevent XSS, but if it didn't, attackers would be able to put javascript code in their blogs. JSoup's .clean() function filters out html entities such as the &lt;script&gt; tag. </p>
+<p>Always filter user input. Escaping HTML entities would definitely help. This blog site uses the JSoup external library to escape dangerous HTML entities to prevent XSS, but if it didn't, attackers would be able to put javascript code in their blogs. JSoup's .clean() function filters out html entities such as the &lt;script&gt; tag. </p>
 
 </body>
 
