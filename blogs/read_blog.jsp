@@ -26,7 +26,7 @@ if (rs.next()) {
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <h2 class="text-center"><%= title %></h2>
+      <h2 class="text-center"><%= Jsoup.clean(title, Whitelist.basicWithImages()) %></h2>
       <h4 class="text-center">By: <%= author %></h4>
       <h5 style="word-wrap: break-word;""><%= Jsoup.clean(body, Whitelist.basicWithImages())  %></h5>
       <br>

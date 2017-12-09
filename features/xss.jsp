@@ -19,7 +19,7 @@
 
 <body>
 <h2>Cross-Site Scripting</h2>
-<p>Cross-site scripting (abbreviated as XSS) is an attack in which an attacker inputs malicious javascript code into a web page. For example, this blog site allows users to enter text input for the blog title and blog body. If an attacker were to type in 	&lt;script&gt; //malicious javascript here	&lt;/script&gt; into the blog body, anyone who reads that attacker's blog will unknowingly execute whatever javascript code that the attacker wrote. This blog site uses the JSoup external library to escape dangerous HTML entities to prevent XSS, but if it didn't, attackers would be able to put javascript code in their blogs. You may try a simple example of XSS below.</p>
+<p>Cross-site scripting (abbreviated as XSS) is an attack in which an attacker inputs malicious javascript code into a web page. For example, a blog site allows users to enter text input for the blog title and blog body. If an attacker were to type in 	&lt;script&gt; //malicious javascript here	&lt;/script&gt; into the blog body, anyone who reads that attacker's blog will unknowingly execute whatever javascript code that the attacker wrote. You may try a simple example of XSS below.</p>
 
 <h3>Try it out: </h3>
 
@@ -44,6 +44,11 @@ Ut malesuada, velit quis bibendum elementum, purus sapien euismod tellus, ut viv
 
 <p>In this specific example, I'm not saving any of your comments. However, if I did, users who came to this page would see your comments and your javascript code will be executed in their browser.</p>
 
+
+
+<h3>Possible Defenses: </h3>
+
+<p>1.) Escaping HTML entities: this blog site uses the JSoup external library to escape dangerous HTML entities to prevent XSS, but if it didn't, attackers would be able to put javascript code in their blogs. JSoup's .clean() function filters out html entities such as the &lt;script&gt; tag. </p>
 
 </body>
 

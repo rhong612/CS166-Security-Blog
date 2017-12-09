@@ -1,14 +1,20 @@
 <%@include file="../../databases.jsp" %>
 <%@page import="java.security.SecureRandom" %>
 <%@page import="java.util.Base64" %>
+<%@ page import="org.jsoup.Jsoup" %>
+<%@ page import="org.jsoup.safety.Whitelist" %>
 
 
 <%
 String fullname = request.getParameter( "fullname" );
 String user = request.getParameter( "user" );
+
+String cleanedName = Jsoup.clean(fullname, Whitelist.basicWithImages());
+String cleanedUser = Jsoup.clean(user, Whitelist.basicWithImages());
+
 String pass = request.getParameter( "pass" );
-if (fullname == null || user == null || fullname.length() >= 128 || user.length() >= 32) {
-	response.sendRedirect("../registration.jsp"); //Full name or username too long
+if (!fullname.equals(cleanedName) || !user.equals(cleanedUser) || fullname == null || user == null || fullname.length() >= 128 || user.length() >= 32) {
+	response.sendRedirect("../registration.jsp"); //Invalid
 }
 else {
 
