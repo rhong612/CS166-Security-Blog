@@ -17,7 +17,7 @@
 	<h2>Please register</h2>
 	<form method="post" action="actions/register_action.jsp">
 		<label>Name:</label><input name="fullname" required/><br>
-		<label>Login ID:</label><input name="user" required/><br>
+		<label>Username:</label><input name="user" required/><br>
 		<label>Password:</label> <input name="pass" type="password" required/><br>
 		<input type="submit" value="Register"/>
 	</form>

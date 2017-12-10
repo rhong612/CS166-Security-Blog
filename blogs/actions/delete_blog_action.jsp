@@ -1,14 +1,11 @@
 <%@include file="../../databases.jsp" %>
+<%@include file="../../constants.jsp" %>
 
 
 <%
 String blog_id = request.getParameter("blog_id");
 String token = request.getParameter("token");
-if (session.getAttribute("username") == null) {
-	con.close();
-	response.sendRedirect("../../index.jsp");
-}
-else if (blog_id == null || !session.getAttribute("token").equals(token)) {
+if (session.getAttribute("username") == null || blog_id == null || !session.getAttribute("token").equals(token)) {
 	con.close();
 	response.sendRedirect("../../unauthorized.jsp");
 }
@@ -22,6 +19,7 @@ else {
 		stmt.executeUpdate();
 		stmt.close();
 		con.close();
+		session.setAttribute(SUCCESS_MSG, "Blog successfully deleted!" );
 		response.sendRedirect("../myblogs.jsp"); //Blog successfully deleted
 	}
 	catch (Exception e) {

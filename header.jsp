@@ -50,6 +50,21 @@
 </nav>
 
 
+<%
+//Print error msg if it exists
+if (session.getAttribute(ERROR_MSG) != null) {
+	out.print("<h4 style='color:red;'>" + session.getAttribute(ERROR_MSG) + "</h4>");
+	session.removeAttribute(ERROR_MSG);
+}
+
+//Print success msg if it exists
+if (session.getAttribute(SUCCESS_MSG) != null) {
+	out.print("<h4 style='color:green;'>" + session.getAttribute(SUCCESS_MSG) + "</h4>");
+	session.removeAttribute(SUCCESS_MSG);
+}
+%>
+
+
 
 <%
 

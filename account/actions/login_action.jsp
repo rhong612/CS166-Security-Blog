@@ -55,6 +55,7 @@ if ( rs.next() ) {
 	response.sendRedirect("../../index.jsp");	
 } else {
 	//Invalid login credentials
+	session.setAttribute(ERROR_MSG, "Incorrect username and/or password" );
 	stmt.close();
 	con.close();
 	response.sendRedirect("../login.jsp");

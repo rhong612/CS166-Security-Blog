@@ -35,7 +35,7 @@
 
 
 <form method="post" action="actions/login_action.jsp">
-	<label>Login ID:</label><input name="user" value = "<%= name %>"/><br>
+	<label>Username:</label><input name="user" value = "<%= name %>"/><br>
 	<label>Password:</label> <input name="pass" value = "<%= pass %>" type="password" /><br>
 	<label>Remember Me:</label> <input type="checkbox" name="rememberMe" value="true" <%= isChecked %>>
 	<input type="submit" value="login"/>

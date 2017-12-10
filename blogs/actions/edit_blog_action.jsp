@@ -1,4 +1,5 @@
 <%@include file="../../databases.jsp" %>
+<%@include file="../../constants.jsp" %>
 <%@ page import="org.jsoup.Jsoup" %>
 <%@ page import="org.jsoup.safety.Whitelist" %>
 
@@ -16,24 +17,23 @@ String cleanedBody = Jsoup.clean(body, Whitelist.basicWithImages());
 
 String blog_id = request.getParameter("blog_id");
 String token = request.getParameter("token");
-if (session.getAttribute("username") == null) {
-	con.close();
-	response.sendRedirect("../../index.jsp");
-}
-else if (title == null || body == null || !session.getAttribute("token").equals(token)) {
+if (session.getAttribute("username") == null || title == null || body == null || !session.getAttribute("token").equals(token)) {
 	con.close();
 	response.sendRedirect("../../unauthorized.jsp");
 }
 else if(!cleanedTitle.equals(title) || !cleanedBody.equals(body)) {
+	session.setAttribute(ERROR_MSG, "Invalid characters found in blog title and/or blog body" );
 	con.close();
 	response.sendRedirect("../myblogs.jsp"); //Invalid HTML entities
 	
 }
 else if (title.length() >= 32) {
+	session.setAttribute(ERROR_MSG, "Title cannot be longer than 32 characters" );
 	con.close();
 	response.sendRedirect("../myblogs.jsp"); //Title too long
 }
 else if (body.length() >= 65535) {
+	session.setAttribute(ERROR_MSG, "Body cannot be longer than 65535 characters" );
 	con.close();
 	response.sendRedirect("../myblogs.jsp"); //Body too long
 }
@@ -48,6 +48,7 @@ else {
 		stmt.executeUpdate();
 		stmt.close();
 		con.close();
+		session.setAttribute(SUCCESS_MSG, "Blog successfully updated!" );
 		response.sendRedirect("../myblogs.jsp"); //Blog successfully updated
 	}
 	catch (Exception e) {

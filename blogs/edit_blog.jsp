@@ -32,7 +32,7 @@ else {
     //Invalid blog ID or a user is attempting to edit a blog that isn't theirs
     stmt.close();
     con.close();
-    response.sendRedirect("myblogs.jsp");
+    response.sendRedirect("../unauthorized.jsp");
   }
 
 }
@@ -45,10 +45,10 @@ else {
   <form method="post" action="actions/edit_blog_action.jsp">
     <div class="form-group">
       <input type="hidden" name="token" value=<%= session.getAttribute("token") %>>
-      <textarea class="form-control" name="title" rows="1" ><%= title %></textarea>
+      <textarea class="form-control" name="title" rows="1" required><%= title %></textarea>
       <br>
       <label for="comment">Blog Body:</label>
-      <textarea class="form-control" name="body" rows="20" ><%= body %></textarea>
+      <textarea class="form-control" name="body" rows="20" required><%= body %></textarea>
       <br>
       <input type="hidden" name="blog_id" value="<%= blog_id %>"/>
       <input type="Submit"/>
