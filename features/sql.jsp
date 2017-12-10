@@ -2,18 +2,30 @@
 <head>
 <%@ include file="../header.jsp" %>
 <title>CS 166 Security Blog</title>
-<%
-String token = session.getAttribute("token").toString();
-%>
 <script>
 $(document).ready(function(){
-        $('#initDBBtn').click(function() {
+        $('#safeSearchBtn').click(function() {
         	$.ajax({
-	            url: 'actions/sql_action.jsp',
+	            url: 'actions/sql_safe_search_action.jsp',
 	            type: 'POST',
-	            data: { token: "<%= token %>" , searchTerm: $("#searchTerm").val()},
+	            data: { searchTerm: $("#searchTerm").val()},
 	            success: function(response) {
-	                $('#feedback').html(response)
+	                $('#searchFeedback').html(response)
+	            },
+	            error: function(error) {
+	                console.log(error);
+	            }
+        	});
+        });
+
+
+        $('#badSearchBtn').click(function() {
+        	$.ajax({
+	            url: 'actions/sql_bad_search_action.jsp',
+	            type: 'POST',
+	            data: { badSearchTerm: $("#badSearchTerm").val()},
+	            success: function(response) {
+	                $('#searchFeedback').html(response)
 	            },
 	            error: function(error) {
 	                console.log(error);
@@ -27,26 +39,25 @@ $(document).ready(function(){
 
 <body>
 <h2>SQL Injection</h2>
-<p>SQL Injection is an attack in which the attacker inputs malicious SQL code in a web page. </p>
+<p>SQL Injection is an attack in which the attacker inputs malicious SQL code in a web page. Through SQL injection, an attacker can gain unauthorized access to your website, read data stored in your MySQL database, or destroy your data. Suppose a login system uses the following query: "SELECT * FROM users WHERE username=' + userInput + ' AND password=' + userPW + '"; If an attacker inputted " ' OR 1=1;# " as their username, then the SELECT query will get every single row in the table, resulting in unauthorized access.</p>
 
 <h3>Try it out: </h3>
-<p>First, let's initialize a test database that was created for this demonstration. Click the button below.</p>
-<input type="button" id="initDBBtn" value="Initialize"/>
+<p>Below is a search box that is protected against SQL injection through the use of Prepared Statements. Input a term into the search box and all of the blogs stored in the database that contain your search term will be shown. Test it out by trying some terms that are in some of the blogs you've read here. </p>
 
-
-<p>Below is a search box that is protected against SQL injection. Input a term into the search box and all of the blogs (in the test database) that contain your search term will be shown. Try the following search term: ' OR 1=1;# </p>
-
-<div id="feedback"></div>
-
+<p>Then, try some SQL injection. Input the following term into the search box and observe that it returns no results: ' OR 1=1;#</p>
 <textarea class="form-control" rows="1" id="searchTerm"></textarea>
-<input type="button" id="searchBtn" name="submit" value="Search"/>
+<input type="button" id="safeSearchBtn" name="submit" value="Search"/>
 
 
-<p>Now, try the same query with this second search box. This form is not protected against SQL injection. The query ' OR 1=1;# will return the entire list of blogs stored in the database.</p>
-<p>The example query above was a relatively harmless one. SQL Injection can be used for more malicious purposes such as:.....</p>
+<p>The search box below is unprotected against SQL injection. Let's try the same query with the second (evil) search box below. This form is not protected against SQL injection. Thus, the query ' OR 1=1;# will return the entire list of blogs stored in the database.</p>
 
-<h3>Try it out again:</h3>
-<p>Go back to the 2nd search form and input the following query: ';-- DROP TABLE blogs;</p>
+<textarea class="form-control" rows="1" id="badSearchTerm"></textarea>
+<input type="button" id="badSearchBtn" name="submit" value="Evil Search"/>
+
+
+<h3>Search Results</h3>
+<div id="searchFeedback"></div>
+
 </body>
 
 <%@ include file="../footer.jsp" %>
