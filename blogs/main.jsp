@@ -56,6 +56,15 @@ while (blogSet.next()) {
 					<h5>By: <%= author %></h5>
 					<h6>Last Updated: <%= date %></h6>
 					<form method="get" action="read_blog.jsp"><input type="hidden" name="blog_id" value="<%= blog_id %>"><input type="Submit" value="Read"></form>
+					<%
+						if (session.getAttribute("role") != null && session.getAttribute("role").equals(ADMIN_ROLE)) {
+					%>
+					<form method="post" action="actions/delete_blog_action.jsp">
+      					<input type="hidden" name="token" value=<%= session.getAttribute("token") %>><input type="hidden" name="blog_id" value="<%= blog_id %>"><input type="Submit" value="Delete">
+      				</form>
+      				<%
+      					}
+      				%>
 				</div>
 			</td>
 		</tr>

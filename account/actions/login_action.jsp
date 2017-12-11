@@ -43,7 +43,7 @@ else {
 	//Check user
 	String user = request.getParameter( "user" );
 	String pass = request.getParameter( "pass" );
-	String sqlStr = "SELECT fullname FROM login WHERE user=? and pass = sha2(CONCAT(login.salt, ?), 256)";
+	String sqlStr = "SELECT fullname, role FROM login WHERE user=? and pass = sha2(CONCAT(login.salt, ?), 256)";
 	PreparedStatement stmt = con.prepareStatement(sqlStr);
 	stmt.setString(1,user);
 	stmt.setString(2,pass);
@@ -52,6 +52,11 @@ else {
 		session.setAttribute( "username", user );
 		session.setAttribute( "fullname", rs.getString("fullname"));
 		
+		if (rs.getString("role").equals(ADMIN_ROLE)) {
+			session.setAttribute("role", ADMIN_ROLE);
+		}
+
+
 		if (request.getParameter("rememberMe") != null) {
 			//Set cookie to remember user account details
 			Cookie usernameCookie = new Cookie(USERNAME_COOKIE, user);

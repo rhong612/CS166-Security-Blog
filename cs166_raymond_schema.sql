@@ -7,6 +7,7 @@ CREATE TABLE login (
   user  VARCHAR(32) NOT NULL,
   pass VARCHAR(64) NOT NULL,
   salt VARCHAR(32) NOT NULL,
+  role VARCHAR(16) DEFAULT 'user',
   PRIMARY KEY (user)
 );
 

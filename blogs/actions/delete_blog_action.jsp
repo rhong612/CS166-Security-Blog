@@ -10,16 +10,32 @@ if (session.getAttribute("username") == null || blog_id == null || !session.getA
 	response.sendRedirect("../../unauthorized.jsp");
 }
 else {
+	PreparedStatement stmt = null;
 	String query = "DELETE FROM blogs WHERE user=? AND blog_id=?";
-	PreparedStatement stmt = con.prepareStatement(query);
-	stmt.setString(1, session.getAttribute("username").toString());
-	stmt.setString(2, blog_id);
+
+	if(session.getAttribute("role") != null && session.getAttribute("role").equals(ADMIN_ROLE)) {
+		query = "DELETE FROM blogs WHERE blog_id = ?";
+		stmt = con.prepareStatement(query);
+		stmt.setString(1, blog_id);
+	}
+	else {
+		stmt = con.prepareStatement(query);
+		stmt.setString(1, session.getAttribute("username").toString());
+		stmt.setString(2, blog_id);
+	}
+
 
 	try {
-		stmt.executeUpdate();
+		int rowsAffected = stmt.executeUpdate();
 		stmt.close();
 		con.close();
-		session.setAttribute(SUCCESS_MSG, "Blog successfully deleted!" );
+
+		if (rowsAffected == 1) {
+			session.setAttribute(SUCCESS_MSG, "Blog successfully deleted!" );
+		}
+		else {
+			session.setAttribute(ERROR_MSG, "An error occurred" );
+		}
 		response.sendRedirect("../myblogs.jsp"); //Blog successfully deleted
 	}
 	catch (Exception e) {
