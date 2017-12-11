@@ -6,19 +6,7 @@
 
 
 <body>
-
-<%
-
-if (session.getAttribute("username") != null) {
-	out.print(session.getAttribute("username"));
-	out.print("<br>" + session.getAttribute("fullname"));	
-}
-else {
-	out.print("Hello guest! Register for an account and login to access all of the features of this site (:");
-}
-
-
-%>
+<p>You might have noticed that every time you close the browser, this site automatically logs you off.</p>
 </body>
 
 <%@ include file="../footer.jsp" %>

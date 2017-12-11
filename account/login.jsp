@@ -35,6 +35,7 @@
 	<label>Password:</label> <input name="pass" type="password" /><br>
 	<label>Remember Username:</label> <input type="checkbox" name="rememberMe" value="true" <%= isChecked %>>
 	<input type="submit" value="login"/>
+	<div class="g-recaptcha" data-sitekey="6LdPfzwUAAAAAFehFoL88DwdHGQtEmPFn3fRlUpw"></div>
 </form>
 
 </body>

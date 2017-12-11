@@ -7,6 +7,7 @@ final String PAGE_COOKIE = "pageCookie";
 final String TIME_COOKIE = "timeCookie";
 final String ERROR_MSG = "errorMsg";
 final String SUCCESS_MSG = "successMsg";
+final String SECRET_CAPTCHA_CODE = "6LdPfzwUAAAAAM7uzTEsNdhGtARQs6X1BzuorO9X"; //localhost code. Change it and keep it secret.
 
 
 %>
