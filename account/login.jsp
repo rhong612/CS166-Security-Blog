@@ -2,6 +2,7 @@
 <head>
 <%@ include file="../header.jsp" %>
 <title>Login Page</title>
+<script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
 

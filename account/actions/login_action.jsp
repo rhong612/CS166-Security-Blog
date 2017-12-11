@@ -1,12 +1,15 @@
 <%@include file="../../databases.jsp" %>
 <%@include file="../../constants.jsp" %>
 <%@page import="java.security.SecureRandom" %>   
-<%@page import="java.util.*" %>   
-<%@page import="java.net.*" %>  
-<%@page import="java.io.*" %>  
+<%@page import="java.util.*" %>
+<%@page import="java.net.URL" %>
+<%@page import="java.net.HttpURLConnection" %>
+<%@page import="java.net.URLEncoder" %>
+<%@page import="java.io.DataOutputStream" %> 
+<%@page import="java.io.InputStream" %>
+<%@page import="java.io.InputStreamReader" %>
 <%@page import="org.json.simple.parser.*" %>   
-<%@page import="org.json.simple.*" %>   
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<%@page import="org.json.simple.*" %>
 
 
 <%
