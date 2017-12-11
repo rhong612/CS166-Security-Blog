@@ -23,18 +23,16 @@ if ( rs.next() ) {
 	if (request.getParameter("rememberMe") != null) {
 		//Set cookie to remember user account details
 		Cookie usernameCookie = new Cookie(USERNAME_COOKIE, user);
-		Cookie passwordCookie = new Cookie(PASSWORD_COOKIE, pass);
 		usernameCookie.setMaxAge(24*60*60);
-		passwordCookie.setMaxAge(24*60*60);
+		usernameCookie.setPath("/account");
 		response.addCookie(usernameCookie);
-		response.addCookie(passwordCookie);
 	}
 	else {
-		//Remove all username/password cookies
+		//Remove all username cookies
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
 			for (Cookie cookie : cookies) {
-				if (cookie.getName().equals(USERNAME_COOKIE) || cookie.getName().equals(PASSWORD_COOKIE)) {
+				if (cookie.getName().equals(USERNAME_COOKIE)) {
 					cookie.setMaxAge(0);
 					response.addCookie(cookie);
 				}
