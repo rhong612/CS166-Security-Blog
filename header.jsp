@@ -73,16 +73,18 @@ if (session.getAttribute(SUCCESS_MSG) != null) {
   Date currentDate = new Date();
   boolean timeCookieExists = false;
   boolean pageCookieExists = false;
+  String currentPage = request.getRequestURL().toString();
   if (allCookies != null) {
     for (Cookie cookie : allCookies) {
       if (cookie.getName().equals(TIME_COOKIE)) {
-        cookie.setValue(currentDate.toString());
-        cookie.setPath("/");
-        response.addCookie(cookie);
+      	if (!currentPage.endsWith("cookies.jsp")) {
+        	cookie.setValue(currentDate.toString());
+        	cookie.setPath("/");
+        	response.addCookie(cookie);
+      	}
         timeCookieExists = true;
       }
       else if (cookie.getName().equals(PAGE_COOKIE)) {
-        String currentPage = request.getRequestURL().toString();
         if (!currentPage.endsWith("cookies.jsp")) {
           cookie.setValue(currentPage);
           cookie.setPath("/");
@@ -99,7 +101,6 @@ if (session.getAttribute(SUCCESS_MSG) != null) {
     response.addCookie(timeCookie);
   }
   if (!pageCookieExists) {
-    String currentPage = request.getRequestURL().toString();
     Cookie pageCookie = new Cookie(PAGE_COOKIE, currentPage);
     pageCookie.setMaxAge(365 * 24 * 60 * 60); //A year
     pageCookie.setPath("/");
