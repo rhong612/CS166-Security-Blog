@@ -10,8 +10,7 @@
 <%
 
 if (session.getAttribute("username") != null) {
-	out.print(session.getAttribute("username"));
-	out.print("<br>" + session.getAttribute("fullname"));	
+	out.print("Hello " + session.getAttribute("fullname") + ".");	
 }
 else {
 	out.print("Hello guest! Register for an account and login to access all of the features of this site (:");
