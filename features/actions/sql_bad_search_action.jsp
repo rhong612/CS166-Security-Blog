@@ -8,11 +8,9 @@ ResultSet rs = stmt.executeQuery();
 
 while (rs.next()) {
 	String title = rs.getString("title");
-	String body = rs.getString("body");
 %>
 
 <h3><%= title %></h3>
-<p><%= body %></p>
 <br>
 
 

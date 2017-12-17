@@ -49,7 +49,7 @@ $(document).ready(function(){
 <input type="button" id="safeSearchBtn" name="submit" value="Search"/>
 
 
-<p>The search box below is unprotected against SQL injection. Let's try the same query with the second (evil) search box below. This form is not protected against SQL injection. Thus, the query ' OR 1=1;# will return the entire list of blogs stored in the database.</p>
+<p>The search box below is unprotected against SQL injection. Instead of using PreparedStatements, user input is concatenated with the SQL query string. Let's try the same query with the second (evil) search box below. This form is not protected against SQL injection. Thus, the query ' OR 1=1;# will return the entire list of blogs stored in the database.</p>
 
 <textarea class="form-control" rows="1" id="badSearchTerm"></textarea>
 <input type="button" id="badSearchBtn" name="submit" value="Evil Search"/>

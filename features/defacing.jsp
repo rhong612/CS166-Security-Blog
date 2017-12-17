@@ -24,7 +24,7 @@
 <h3>Try it out: </h3>
 
 
-<p>Below is a sample blog. Users can add comments to the blog. Try writing a comment and adding &lt;script&gt; document.body.innerHTML="&lt;style&gt;body{visibility:hidden;}&lt;/style&gt;&lt;div style=visibility:visible;&gt;&lt;h1&gt;THIS SITE WAS HACKED&lt;/h1&gt;&lt;/div&gt;"; &lt;/script&gt; somewhere in your comment. After clicking the "Add comment" button, your comment will be shown and the javascript code will be executed - replacing the entire page with a message. </p>
+<p>Below is a sample blog. Users can add comments to the blog. The comments do not filter out dangerous HTML entities, so XSS is possible. Try writing a comment and adding &lt;script&gt; document.body.innerHTML="&lt;style&gt;body{visibility:hidden;}&lt;/style&gt;&lt;div style=visibility:visible;&gt;&lt;h1&gt;THIS SITE WAS HACKED&lt;/h1&gt;&lt;/div&gt;"; &lt;/script&gt; somewhere in your comment. After clicking the "Add comment" button, your comment will be shown and the javascript code will be executed - replacing the entire page with a message. </p>
 
 <h3 style="text-align:center;">Sample Blog</h3>
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tincidunt lobortis pretium. Nam scelerisque, neque et bibendum vehicula, risus enim pharetra dui, quis mattis ipsum mi vitae tellus. Quisque facilisis, purus non ultrices hendrerit, elit leo imperdiet enim, vel blandit dolor nibh id orci. Morbi egestas enim ut nibh tristique, vitae lacinia est gravida. Aliquam ac pellentesque ligula, sit amet egestas dolor. Etiam venenatis vestibulum quam, sit amet interdum purus dictum nec. Vestibulum et ultricies ipsum. Praesent id egestas risus, non fringilla nulla. Praesent porttitor augue odio.
