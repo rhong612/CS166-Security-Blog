@@ -42,7 +42,7 @@ $(document).ready(function(){
 <p>SQL Injection is an attack in which the attacker inputs malicious SQL code in a web page. Through SQL injection, an attacker can gain unauthorized access to your website, read data stored in your MySQL database, or destroy your data. Suppose a login system uses the following query: "SELECT * FROM users WHERE username=' + userInput + ' AND password=' + userPW + '"; If an attacker inputted " ' OR 1=1;# " as their username, then the SELECT query will get every single row in the table, resulting in unauthorized access.</p>
 
 <h3>Try it out: </h3>
-<p>Below is a search box that is protected against SQL injection through the use of Prepared Statements. Input a term into the search box and all of the blogs stored in the database that contain your search term will be shown. Test it out by trying some terms that are in some of the blogs you've read here. </p>
+<p>Below is a search box that is protected against SQL injection through the use of Prepared Statements. Input a term into the search box and all of the blogs stored in the database that contain your search term will be shown. Test it out by trying some terms that are in some of the blogs you've read here. For example, if you input "javascript", the Behind the Scenes Tour blog will be shown, because it contains the word "javascript" in its body.</p>
 
 <p>Then, try some SQL injection. Input the following term into the search box and observe that it returns no results: ' OR 1=1;#</p>
 <textarea class="form-control" rows="1" id="searchTerm"></textarea>
