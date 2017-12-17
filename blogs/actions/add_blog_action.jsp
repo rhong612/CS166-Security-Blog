@@ -11,7 +11,7 @@ String title = request.getParameter("title");
 String body = request.getParameter("body");
 
 String cleanedTitle = Jsoup.clean(title, Whitelist.basicWithImages());
-String cleanedBody = Jsoup.clean(body, "", Whitelist.basicWithImages(), new OutputSettings().prettyPrint(false));
+String cleanedBody = Jsoup.clean(body, "", Whitelist.basicWithImages(), new OutputSettings().prettyPrint(false)); //Allow newline char
 
 String token = request.getParameter("token");
 if (session.getAttribute("username") == null || title == null || body == null || !session.getAttribute("token").equals(token)) {
