@@ -2,6 +2,7 @@
 <%@include file="../../constants.jsp" %>
 <%@ page import="org.jsoup.Jsoup" %>
 <%@ page import="org.jsoup.safety.Whitelist" %>
+<%@ page import="org.jsoup.nodes.Document.OutputSettings" %>
 
 
 
@@ -11,8 +12,9 @@ String body = request.getParameter("body");
 
 
 
-String cleanedTitle = Jsoup.clean(title, Whitelist.basicWithImages());
-String cleanedBody = Jsoup.clean(body, Whitelist.basicWithImages());
+OutputSettings outputSettings = new OutputSettings().prettyPrint(false);
+String cleanedTitle = Jsoup.clean(title, "", Whitelist.basicWithImages(), outputSettings);
+String cleanedBody = Jsoup.clean(body, "", Whitelist.basicWithImages(), outputSettings);
 
 
 String blog_id = request.getParameter("blog_id");

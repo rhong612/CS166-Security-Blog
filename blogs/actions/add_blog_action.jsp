@@ -2,6 +2,7 @@
 <%@include file="../../constants.jsp" %>
 <%@ page import="org.jsoup.Jsoup" %>
 <%@ page import="org.jsoup.safety.Whitelist" %>
+<%@ page import="org.jsoup.nodes.Document.OutputSettings" %>
 
 
 
@@ -9,9 +10,9 @@
 String title = request.getParameter("title");
 String body = request.getParameter("body");
 
-
-String cleanedTitle = Jsoup.clean(title, Whitelist.basicWithImages());
-String cleanedBody = Jsoup.clean(body, Whitelist.basicWithImages());
+OutputSettings outputSettings = new OutputSettings().prettyPrint(false);
+String cleanedTitle = Jsoup.clean(title, "". Whitelist.basicWithImages(), outputSettings);
+String cleanedBody = Jsoup.clean(body, "", Whitelist.basicWithImages(), outputSettings);
 
 String token = request.getParameter("token");
 if (session.getAttribute("username") == null || title == null || body == null || !session.getAttribute("token").equals(token)) {

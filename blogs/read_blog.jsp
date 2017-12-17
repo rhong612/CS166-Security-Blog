@@ -4,6 +4,7 @@
 <%@ include file="../databases.jsp" %>
 <%@ page import="org.jsoup.Jsoup" %>
 <%@ page import="org.jsoup.safety.Whitelist" %>
+<%@ page import="org.jsoup.nodes.Document.OutputSettings" %>
 </head>
 
 
@@ -21,14 +22,15 @@ if (rs.next()) {
   String author = rs.getString("fullname");
   String body = rs.getString("body");
   String date = rs.getString("date");
+  OutputSettings outputSettings = new OutputSettings().prettyPrint(false);
 %>
 
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <h2 class="text-center"><%= Jsoup.clean(title, Whitelist.basicWithImages()) %></h2>
+      <h2 class="text-center"><%= Jsoup.clean(title, "", Whitelist.basicWithImages(), outputSettings) %></h2>
       <h4 class="text-center">By: <%= author %></h4>
-      <h5 style="word-wrap: break-word;""><%= Jsoup.clean(body, Whitelist.basicWithImages())  %></h5>
+      <h5 style="word-wrap: break-word; white-space: pre-wrap;"><%= Jsoup.clean(body, "", Whitelist.basicWithImages(), outputSettings)  %></h5>
       <br>
       <h5 class="text-center">Last Updated: <%= date %></h5>
     </div>
