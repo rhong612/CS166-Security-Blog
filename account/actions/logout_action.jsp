@@ -8,7 +8,7 @@
 
 session.invalidate();
 
-//Remove all username/password cookies
+//Remove all username cookies
 Cookie[] cookies = request.getCookies();
 if (cookies != null) {
 	for (Cookie cookie : cookies) {
