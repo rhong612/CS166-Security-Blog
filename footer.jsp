@@ -14,5 +14,5 @@
 
 <footer id="pageFooter">
 		<p><a href="../../privacy.jsp" style="color: white;">Privacy Statement</a></p>
-        <small id="copyright">&copy; Copyright: Raymond Hong 2017</small>
+        <small id="copyright">&copy; Copyright: Raymond Hong 2018</small>
 </footer>
