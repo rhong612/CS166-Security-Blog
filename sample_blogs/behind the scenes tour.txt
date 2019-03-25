@@ -1,0 +1,196 @@
+This site's UI was built using HTML, CSS, and Javascript along with Bootstrap and some JQuery. The middle tier consists of JSP pages that are served on a Tomcat web server. The backend consists of a MySQL database. JDBC was used to establish the database connection between the JSP pages and MySQL.
+
+<b>Basic Security Features: </b>
+<b>1.) SQL Injection </b>
+For all database queries, PreparedStatements were used. This is to prevent SQL injection. PreparedStatements treat user input as parameters which prevents SQL injection, because user input is not concatenated with the SQL query string.
+<code>	
+	String user = request.getParameter( "user" );
+	String pass = request.getParameter( "pass" );
+	String sqlStr = "SELECT fullname, role FROM login WHERE user=? and pass = sha2(CONCAT(login.salt, ?), 256)";
+	PreparedStatement stmt = con.prepareStatement(sqlStr);
+	stmt.setString(1,user);
+	stmt.setString(2,pass);
+	ResultSet rs = stmt.executeQuery();
+</code>
+
+<b>2.) Cross-site Scripting (XSS) </b>
+Using the JSoup library, user input is filtered during registration before it is inserted into the database.
+<code>
+	String cleanedName = Jsoup.clean(fullname, Whitelist.basicWithImages());
+	String cleanedUser = Jsoup.clean(user, Whitelist.basicWithImages());
+</code>
+All dangerous HTML entities are filtered out such as Javascript tags. Some parts of the site address the user by their fullname, so if javascript tags were present, the javascript code would be executed. 
+
+The JSoup library also filters out input when users are creating or editing blogs.
+<code>
+	String cleanedTitle = Jsoup.clean(title, Whitelist.basicWithImages());
+	String cleanedBody = Jsoup.clean(body, "", Whitelist.basicWithImages(), new OutputSettings().prettyPrint(false)); //OutputSettings allows newline break
+</code>
+Note: Some HTML entities are still allowed such as the bold or img tag to give the user more flexibility in writing their blogs. However, the tags will only work if they are properly formatted.
+
+<b>3.) Authentication </b>
+The registration page allows users to register with a name, username, and password. The username and password are used as authentication while the name is simply used as a way of addressing the user. Upon registration, user input is inserted into the MySQL database. The name and username are stored in plaintext, but the passwords are hashed (with SHA-256) and salted. A random salt value is generated for every user to prevent dictionary attacks as shown below. 
+<code>
+	SecureRandom saltGenerator = new SecureRandom();
+	byte[] salt = new byte[16]; //16 bytes salt
+	saltGenerator.nextBytes(salt);
+	String saltStr = Base64.getEncoder().encodeToString(salt);
+
+	String sqlStr = "INSERT INTO login(fullname,user, pass, salt) VALUES (?, ?, sha2(?, 256), ?)";
+	PreparedStatement stmt = con.prepareStatement(sqlStr);
+	stmt.setString(1,fullname);
+	stmt.setString(2,user);
+	stmt.setString(3, saltStr + pass);
+	stmt.setString(4, saltStr);
+</code>
+
+When a user is attempting to login to the site, they must input a valid username and password combination. The SQL query to check this is as follows:
+<code>
+String sqlStr = "SELECT fullname, role FROM login WHERE user=? and pass = sha2(CONCAT(login.salt, ?), 256)";
+</code>
+
+<b>5.) CAPTCHA </b>
+To prevent bots, the login page uses Google's ReCAPTCHA. If the user attempts to login without validating the CAPTCHA, they will not be authenticated and the following error message is shown.
+<img src="https://www.dropbox.com/s/j8s68zs8s18hwt4/captcha.png?raw=1">
+
+The ReCAPTCHA response is validated on the server with the following block of code:
+<code>
+//Google ReCAPTCHA v2
+String userResponse = request.getParameter("g-recaptcha-response");
+URL url = new URL("https://www.google.com/recaptcha/api/siteverify");
+HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+connection.setRequestMethod("POST");
+connection.setDoOutput(true);
+
+//Send request
+DataOutputStream postRequest = new DataOutputStream (connection.getOutputStream());
+postRequest.writeBytes(urlParameters); 
+postRequest.close();
+
+InputStream inputStream = connection.getInputStream();
+JSONParser jsonParser = new JSONParser();
+JSONObject jsonObject = (JSONObject)jsonParser.parse(new InputStreamReader(inputStream, "UTF-8"));
+inputStream.close();
+
+String result = jsonObject.get("success").toString();
+</code>
+
+A POST request is sent to https://www.google.com/recaptcha/api/siteverify. The response is a JSON object that can tell you whether or not the CAPTCHA was validated. An external library, JSON-Simple-1.1.1.jar was used to easily parse the JSON response.
+
+<b>6.) Cross-site Request Forgery (CSRF)</b>
+To prevent CSRF, CSRF prevention tokens are used. Upon user login, a CSRF prevention token is randomly generated and added to the user's current session.
+
+<code>
+		SecureRandom tokenGenerator = new SecureRandom();
+		byte[] token = new byte[16]; //16 bytes token
+		tokenGenerator.nextBytes(token);
+		String tokenStr = Base64.getEncoder().encodeToString(token);
+		session.setAttribute( "token", tokenStr);
+		session.setMaxInactiveInterval(60 * 60); //1 hour
+</code>
+
+Then, this CSRF token is added as a hidden POST parameter in certain forms (such as on the edit blog page). 
+<img src="https://www.dropbox.com/s/pb20n96bkf7rvpl/csrf_token.png?raw=1">
+The session.getAttribute('token") gets the CSRF token that was generated for the current session.
+
+<b>7.) Authorization </b>
+Role based access control is implemented. Unauthenticated users cannot create or edit blogs, but they can read blogs made by other users. Normal users (created through the registration page) have the ability to create, edit, and delete their own blogs. Administrator accounts have the ability to delete blogs made by other users.
+
+To a normal user, /blogs/main.jsp looks like the picture below.
+<img src="https://www.dropbox.com/s/gcnxnrcbkn598cn/normal_blogs.png?raw=1">
+
+To the administrator, /blogs/main.jsp looks like this instead.
+<img src="https://www.dropbox.com/s/w9a457twg84vz1a/main_blogs.png?raw=1">
+
+The administrator has an additional "delete" button for every user's blog. Normal users can only delete their own blogs.
+
+Upon login, the user's role (which is stored in the MySQL database) is read and stored as a session attribute. Then, /blogs/main.jsp has the following code snippet that does adds the delete button if the user is an admin.
+<code>
+if (session.getAttribute("role").equals(ADMIN_ROLE)) {//Show delete button form}
+</code>
+
+<b> 8.) Cookie Management </b>
+There are 4 cookies created by this web application. JSESSIONID is used for session tracking and is created whenever a session is started. pageCookie is a cookie used to identify the user's last visited page. timeCookie is a cookie used to identify the time that the user last visited a page. Finally, userCookie is used to remember usernames if the user checks the "Remember username" checkbox on the login page.
+
+The following block of code is found in a file called header.jsp. This jsp file is included in every other web page, so this script is run on every page. If the pageCookie or timeCookie does exist, it is created. If it does exist, their values are updated as long as the user is not on the /features/cookies.jsp page.
+
+These cookies are set to expire after a year. In addition, their paths are set to "/" so that every page in this web application can access them. Normally, cookies are only accessible from the page that they are created in.
+<code>
+  //Cookie used to remember last visited page and time
+  Cookie[] allCookies = request.getCookies();
+  Date currentDate = new Date();
+  boolean timeCookieExists = false;
+  boolean pageCookieExists = false;
+  String currentPage = request.getRequestURL().toString();
+  if (allCookies != null) {
+    for (Cookie cookie : allCookies) {
+      if (cookie.getName().equals(TIME_COOKIE)) {
+      	if (!currentPage.endsWith("cookies.jsp")) {
+        	cookie.setValue(currentDate.toString());
+        	cookie.setPath("/");
+        	response.addCookie(cookie);
+      	}
+        timeCookieExists = true;
+      }
+      else if (cookie.getName().equals(PAGE_COOKIE)) {
+        if (!currentPage.endsWith("cookies.jsp")) {
+          cookie.setValue(currentPage);
+          cookie.setPath("/");
+          response.addCookie(cookie);
+        }
+        pageCookieExists = true;
+      }
+    }
+  }
+  if (!timeCookieExists) {
+    Cookie timeCookie = new Cookie(TIME_COOKIE, currentDate.toString());
+    timeCookie.setMaxAge(365 * 24 * 60 * 60); //A year
+    timeCookie.setPath("/");
+    response.addCookie(timeCookie);
+  }
+  if (!pageCookieExists) {
+    Cookie pageCookie = new Cookie(PAGE_COOKIE, currentPage);
+    pageCookie.setMaxAge(365 * 24 * 60 * 60); //A year
+    pageCookie.setPath("/");
+    response.addCookie(pageCookie);
+  }
+</code>
+
+The userCookie is set only if the user logins with the "Remember me" checkbox checked. 
+<code>
+		if (request.getParameter("rememberMe") != null) {
+			//Set cookie to remember user account details
+			Cookie usernameCookie = new Cookie(USERNAME_COOKIE, user);
+			usernameCookie.setMaxAge(24*60*60);
+			usernameCookie.setPath("/account");
+			response.addCookie(usernameCookie);
+		}
+</code>
+Unlike the pageCookie and timeCookie, this cookie is set to expire after 1 day.
+
+On page logout, the username cookie is removed.
+<code>
+//Remove username cookies
+Cookie[] cookies = request.getCookies();
+if (cookies != null) {
+	for (Cookie cookie : cookies) {
+		if (cookie.getName().equals(USERNAME_COOKIE)) {
+			cookie.setMaxAge(0);
+			cookie.setPath("/account");
+			response.addCookie(cookie);
+		}
+	}
+}
+</code>
+
+
+<b> 9.) Session Management</b>
+As mentioned earlier, the user's role (either user or admin) and the randomly generated CSRF prevention token is stored as a session attribute. The user's role definitely cannot be stored as a cookie, because then the user would be able to change their own role to admin. If an admin logged in to this website and logged out, the session attribute "role" will still have the value of "admin." Therefore, unless the admin closes their browser, the next person who logs in will be authenticated as an admin. In order to ensure that this does not happen, the session is invalidated whenever a user logs out.
+
+<code>
+session.invalidate(); //called on user logout
+</code>
+
+<b> 10.) Firewall Rules </b>
+Below is a screenshot of the AWS security group rules.
+<img src="https://www.dropbox.com/s/3gxhogynf86l660/firewall%20rules.png?raw=1">
